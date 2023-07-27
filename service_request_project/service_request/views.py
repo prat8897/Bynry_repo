@@ -22,7 +22,7 @@ def submit_service_request(request):
     return render(request, 'submit_service_request.html', {'form': form})
 
 def track_service_request(request):
-    service_requests = ServiceRequest.objects.all()
+    service_requests = ServiceRequest.objects.filter(user=request.user)
     return render(request, 'track_service_request.html', {'service_requests': service_requests})
 
 def signup_view(request):
