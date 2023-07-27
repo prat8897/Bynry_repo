@@ -1,0 +1,33 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}!</p>
+        
+        <ul>
+            {% for service_request in service_requests %}
+                <li>
+                    <strong>{{ service_request.type }}</strong> - {{ service_request.submitted_datetime }}
+                    - Status: {{ service_request.get_status_display }}
+                    {% if service_request.status == 'done' %}
+                        - Resolved: {{ service_request.resolved_datetime }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'service_request:account_info' %}">Account Information</a>
+        <br>
+        <a href="{% url 'service_request:submit' %}">Submit Service Request</a>
+        <br>
+        <a href="{% url 'service_request:logout' %}">Logout</a>
+    {% else %}
+        <p>Please log in to view service request status.</p>
+        <a href="{% url 'service_request:login' %}">Login</a>
+    {% endif %}
+</body>
+</html>

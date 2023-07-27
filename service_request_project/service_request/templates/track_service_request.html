@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Service Request Tracking</title>
+</head>
+<body>
+    <h1>Service Request Tracking</h1>
+    <ul>
+        {% for service_request in service_requests %}
+            <li>
+                <strong>{{ service_request.type }}</strong> - {{ service_request.submitted_datetime }}
+                {% if service_request.resolved_datetime %}
+                    - Resolved: {{ service_request.resolved_datetime }}
+                {% else %}
+                    - Status: Pending
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
